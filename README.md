@@ -16,7 +16,7 @@ multi-node setup and easier monitoring of Kubernetes components.
 You should be able to run `kubectl get pods --all-namespaces` and see some
 output:
 
-```
+```bash
 $ kubectl get pods --all-namespaces
 NAMESPACE     NAME                                      READY     STATUS    RESTARTS   AGE
 kube-system   kube-api-checkpoint-172.17.4.101          1/1       Running   0          35m
@@ -37,6 +37,31 @@ After install the [kubernetes-dashboard][] the UI should be available at
 kubectl --namespace=kube-system apply -f https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml
 ```
 
+## Running Prometheus
+
+There are many options to install and configure Prometheus in Kubernetes.
+
+The most basic one is to create the necessary pod spec, service spec and
+deployment/petset spec on your own. There are various [Helm][] charts available
+in the Kubernetes ecosystem to make it easier to share such specifications.
+
+A very recent new option is to use [CoreOS][]' [prometheus-operator][] which
+provides Kubernetes controller and extensions making the configuration of
+Prometheus very easy.
+
+The following command will install the Prometheus Operator and upload a
+Prometheus specification. The operator will watch for such specs and configure
+Prometheus accordingly.
+
+```bash
+cd kube-prometheus
+hack/cluster-monitoring/deploy
+```
+
+
 [bootkube]: https://github.com/kubernetes-incubator/bootkube
+[coreos]: https://coreos.com/
+[helm]: https://github.com/kubernetes/helm
 [kubernetes-dashboard]: https://github.com/kubernetes/dashboard
 [minikube]: https://github.com/kubernetes/minikube
+[prometheus-operator]: https://github.com/coreos/prometheus-operator
