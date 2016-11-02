@@ -54,8 +54,7 @@ Prometheus specification. The operator will watch for such specs and configure
 Prometheus accordingly.
 
 ```bash
-cd kube-prometheus
-hack/cluster-monitoring/deploy
+scripts/deploy
 ```
 
 

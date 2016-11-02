@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+if [ -z "${KUBECONFIG}" ]; then
+    KUBECONFIG=~/.kube/config
+fi
+
+kctl() {
+    kubectl --kubeconfig="$KUBECONFIG" -n "monitoring" "$@"
+}
+
+kctl delete namespace/monitoring
