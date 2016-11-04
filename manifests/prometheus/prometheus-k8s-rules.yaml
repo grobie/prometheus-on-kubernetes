@@ -52,6 +52,23 @@ data:
     > 0.5\n  FOR 10m\n  LABELS {\n    severity = \"warning\"\n  }\n  ANNOTATIONS {\n
     \   summary = \"high fsync durations\",\n    description = \"ectd instance {{
     $labels.instance }} fync durations are high\",\n  }\n"
+  example-app.rules: |
+    ALERT ExampleAppHighAPIErrorRate
+      IF (
+          sum without(instance)(rate(demo_api_request_duration_seconds_count{status=~"5.."}[1m]))
+        / ignoring(status)
+          sum without(instance, status)(rate(demo_api_request_duration_seconds_count[1m]))
+        * 100
+        > 1
+      )
+      FOR 5m
+      LABELS {
+        severity = "critical",
+      }
+      ANNOTATIONS {
+        summary = "Example app high API error rate",
+        description = "Endpoint {{$labels.method}} {{$labels.path}} on {{$labels.job}} has a error rate of {{$value}}%.",
+      }
   kubernetes.rules: |+
     # NOTE: These rules were kindly contributed by the SoundCloud engineering team.
 

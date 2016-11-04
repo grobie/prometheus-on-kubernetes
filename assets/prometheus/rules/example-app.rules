@@ -1,0 +1,16 @@
+ALERT ExampleAppHighAPIErrorRate
+  IF (
+      sum without(instance)(rate(demo_api_request_duration_seconds_count{status=~"5.."}[1m]))
+    / ignoring(status)
+      sum without(instance, status)(rate(demo_api_request_duration_seconds_count[1m]))
+    * 100
+    > 1
+  )
+  FOR 5m
+  LABELS {
+    severity = "critical",
+  }
+  ANNOTATIONS {
+    summary = "Example app high API error rate",
+    description = "Endpoint {{$labels.method}} {{$labels.path}} on {{$labels.job}} has a error rate of {{$value}}%.",
+  }
