@@ -8,14 +8,15 @@ kctl() {
     kubectl --kubeconfig="$KUBECONFIG" "$@"
 }
 
-kctl create namespace monitoring
-
 kctl -n=kube-system apply -f manifests/k8s
+
+kctl create namespace monitoring
 kctl -n=monitoring apply -f manifests/prometheus-operator.yaml
 
 # Wait for TPRs to be ready.
 until kctl get servicemonitor; do sleep 1; done
 until kctl get prometheus; do sleep 1; done
 
-kctl -n=monitoring apply -f manifests/prometheus
 kctl -n=monitoring apply -f manifests/exporters
+kctl -n=monitoring apply -f manifests/prometheus
+kctl -n=monitoring apply -f manifests/grafana
