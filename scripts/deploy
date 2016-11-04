@@ -20,3 +20,4 @@ until kctl get prometheus; do sleep 1; done
 kctl -n=monitoring apply -f manifests/exporters
 kctl -n=monitoring apply -f manifests/prometheus
 kctl -n=monitoring apply -f manifests/grafana
+kctl -n=default apply -f manifests/example-app
