@@ -1,7 +1,12 @@
 # Prometheus on Kubernetes
 
 An example setup of Prometheus inside of Kubernetes, monitoring the Kubernetes
-infrastructure itself as well as services running in Kubernetes.
+infrastructure itself as well as services running in Kubernetes. Used during a
+workshop at [ContainerDays NYC][].
+
+The setup and all manifests are copied from [CoreOS][]' [kube-prometheus][]
+project. This repository split their project up in individual commits to show
+the individual steps.
 
 ## Preparation
 
@@ -59,8 +64,10 @@ scripts/deploy
 
 
 [bootkube]: https://github.com/kubernetes-incubator/bootkube
+[containerdays nyc]: http://dynamicinfradays.org/events/2016-nyc/
 [coreos]: https://coreos.com/
 [helm]: https://github.com/kubernetes/helm
+[kube-prometheus]: https://github.com/coreos/kube-prometheus
 [kubernetes-dashboard]: https://github.com/kubernetes/dashboard
 [minikube]: https://github.com/kubernetes/minikube
 [prometheus-operator]: https://github.com/coreos/prometheus-operator
